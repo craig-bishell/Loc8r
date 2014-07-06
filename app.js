@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var router = require('./routes');
 
 var app = express();
 require('./app_server/models/db');
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./routes')(app);
+app.use('/', router(express.Router()));
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

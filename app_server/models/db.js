@@ -7,16 +7,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 mongoose.connect(dbURI);
 
-var readLine = require("readline");
-if (process.platform === "win32"){
-  var rl = readLine.createInterface ({
-    input: process.stdin,
-    output: process.stdout
-  });
-  rl.on("SIGINT", function(){
-    process.emit("SIGINT");
-  });
-}
+//if (process.platform === "win32") {
+//    require("node-sigint");
+//}
+
+//if (process.platform === "win32") {
+//    require("readline").createInterface({
+//        input: process.stdin,
+//        output: process.stdout
+//    }).on("SIGINT", function () {
+//        process.emit("SIGINT");
+//    });
+//}
 
 mongoose.connection.on('connected', function() {
   console.log('Mongoose connected to ' + dbURI);
@@ -30,7 +32,7 @@ mongoose.connection.on('disconnected', function() {
 
 gracefulShutdown = function(msg, callback) {
   mongoose.connection.close(function() {
-    console.log('Mongoose disconnected through ' + msg);
+	console.log('Mongoose disconnected through ' + msg);
     callback();
   });
 };

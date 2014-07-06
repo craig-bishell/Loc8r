@@ -1,9 +1,5 @@
-var express = require('express');
-var router = express.Router();
-
-module.exports = function(app) {
+module.exports = function(router) {
   require('./main')(router);
   require('./locations')(router);
-   
-  app.use('/', router);
+  return router;
 }
